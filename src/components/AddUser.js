@@ -14,13 +14,14 @@ class AddUser extends Component {
 
 contactExist = currenUserName => {
   const users = this.props.users;
-  for (let user in users ) {
-   {  user.userName === currenUserName
-      ? true
-      : false }
-    }
 
-}
+    for (let user of users) {
+       if (user.username === currenUserName) {
+         return true;
+       }
+     }
+     return false;
+   };
 
 handleSubmitEvent = event => {
   event.preventDefault();
@@ -93,6 +94,6 @@ AddUser.propTypes = {
   onAddUser : propTypes.func.isRequired,
   users : propTypes.array.isRequired,
 
-}
+};
 
 export default AddUser;

@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import propTypes from 'prop-types';
 
-function App() {
+const User = props => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <li className="user">
+        <p>Username: {props.user.username}</p>
+        <p>Number of Games Played: {props.showGamesPlayed ? props.user.numGamesPlayed : '*'}</p>
+      </li>
+    );
 }
 
-export default App;
+User.propTypes = {
+  showGamesPlayed: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
+export default User;
