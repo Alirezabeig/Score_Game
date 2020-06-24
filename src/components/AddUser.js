@@ -12,13 +12,20 @@ class AddUser extends Component {
 
   }
 
+handleInputChange = event => {
+  const { name , value } = event.target;
 
-  handleInputChange(event) {
-    this.setState({value : event.target.value });
-  }
+  this.setState(currState => ({
+    ...currState,
+    user : {
+      ...currState.user,
+      [name] : value,
+    },
+  }));
+};
 
   render (){
-    
+
     const { firstName, lastName, userName } = this.state.user
 
     return (
@@ -29,30 +36,29 @@ class AddUser extends Component {
 
         <input
         type= "text"
-        name= "name"
+        name= "firstName"
         placeholder = "first name"
         value= {firstName}
         onChange = {this.handleInputChange}/>
 
+
+
         <input
         type= "text"
-        name= "last"
+        name= "lastName"
         placeholder = "last name"
         value= {lastName}
         onChange = {this.handleInputChange}/>
 
         <input
         type= "text"
-        name= "username"
-        placeholder = "username"
+        name= "userName"
+        placeholder = "user name"
         value= {userName}
         onChange = {this.handleInputChange}/>
 
        <input type = "submit" value = "submit" />
        </form>
-
-
-
 
       </div>
     );
