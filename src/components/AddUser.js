@@ -1,38 +1,41 @@
 import React , { Component } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class AddUser extends Component {
 
   state = {
     user : {
-    firstName : '',
-    lastName : '',
-    userName : '',
+      firstName : '',
+      lastName : '',
+      userName : '',
     },
-    userExist : false,
+    userExists : false,
   }
 
-contactExist = currenUserName => {
-  const users = this.props.users;
-
+contactExists = currUsername => {
+    const users = this.props.users;
     for (let user of users) {
-       if (user.username === currenUserName) {
-         return true;
-       }
-     }
-     return false;
-   };
+      if (user.username === currUsername) {
+        return true;
+      }
+    }
+    return false;
+  };
 
-handleSubmitEvent = event => {
+
+handleSubmit = event => {
   event.preventDefault();
-  const userExist = this.contactExist(this.state.user.userName)
+  const userExists = this.contactExists(this.state.user.userName);
 
-  if (!userExist){
+  if (!userExists){
     this.props.onAddUser(this.state.user);
-  } this.setState (() =>({
-    userExist,
-  }) );
+  }
+   this.setState (() =>({
+    userExists,
+  }));
 };
+
+
 
 handleInputChange = event => {
   const { name , value } = event.target;
@@ -46,6 +49,11 @@ handleInputChange = event => {
   }));
 };
 
+isDisabled = () => {
+  const { firstName, lastName, username } = this.state.user;
+  return firstName === '' || lastName === '' || username === '';
+};
+
   render (){
 
     const { firstName, lastName, userName } = this.state.user
@@ -55,7 +63,7 @@ handleInputChange = event => {
       <h1>New User</h1>
 
       <form onSubmit = {this.handleSubmit} >
-
+        <div>
         <input
         type= "text"
         name= "firstName"
@@ -78,9 +86,11 @@ handleInputChange = event => {
         onChange = {this.handleInputChange}/>
 
        <input type = "submit" value = "submit" />
+        </div>
+          <button disabled={this.isDisabled()}>Add</button>
        </form>
 
-       {this.state.userExist ? (
+       {this.state.userExists ? (
          <p>Oh, this user already exists</p>
        ): (
            ' '
@@ -91,8 +101,8 @@ handleInputChange = event => {
   }
 }
 AddUser.propTypes = {
-  onAddUser : propTypes.func.isRequired,
-  users : propTypes.array.isRequired,
+  onAddUser : PropTypes.func.isRequired,
+  users : PropTypes.array.isRequired,
 
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import User from './User'
 
 
 class UserList extends React.Component {
@@ -9,23 +10,42 @@ class UserList extends React.Component {
     showGamesPlayed : true,
   }
 
-  toggleStateGame = () => {
+  toggleStateGamePlayed = () => {
     this.setState ( oldGameState => ({
       showGamesPlayed : !oldGameState.showGamesPlayed,
     }));
   }
 
   render () {
+    const { showGamesPlayed } = this.state;
+    const {users } = this.props ;
+
+    const gamesPlayedButton= (
+      <div>
+        <button onClick = {this.toggleStateGamePlayed }>
+          { showGamesPlayed ? 'Hide' : 'Show' }
+        </button>
+
+      </div>
+    )
 
     return (
-      const { showGamesPlayed } = this.state;
-      const {users } = this.props ;
+
+      <div>
+       <h1>Users</h1>
+       {users && users.length > 0 ? gamesPlayedButton : ''}
+       <ol>
+         {users.map(user => (
+           <User key={user.username} user={user} showGamesPlayed={showGamesPlayed} />
+         ))}
+       </ol>
+     </div>
 
     )
   }
-
-  UserList.propTypes = {
-    users : propTypes.array.isRequired;
-  }
 }
+UserList.propTypes = {
+  users: PropTypes.array.isRequired,
+};
+
 export default UserList
