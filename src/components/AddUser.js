@@ -1,4 +1,5 @@
 import React , { Component } from 'react';
+import propTypes from 'prop-types';
 
 class AddUser extends Component {
 
@@ -8,9 +9,29 @@ class AddUser extends Component {
     lastName : '',
     userName : '',
     },
-
-
+    userExist : false,
   }
+
+contactExist = currenUserName => {
+  const users = this.props.users;
+  for (let user in users ) {
+   {  user.userName === currenUserName
+      ? true
+      : false }
+    }
+
+}
+
+handleSubmitEvent = event => {
+  event.preventDefault();
+  const userExist = this.contactExist(this.state.user.userName)
+
+  if (!userExist){
+    this.props.onAddUser(this.state.user);
+  } this.setState (() =>({
+    userExist,
+  }) );
+};
 
 handleInputChange = event => {
   const { name , value } = event.target;
@@ -41,8 +62,6 @@ handleInputChange = event => {
         value= {firstName}
         onChange = {this.handleInputChange}/>
 
-
-
         <input
         type= "text"
         name= "lastName"
@@ -60,9 +79,20 @@ handleInputChange = event => {
        <input type = "submit" value = "submit" />
        </form>
 
+       {this.state.userExist ? (
+         <p>Oh, this user already exists</p>
+       ): (
+           ' '
+         )}
+
       </div>
     );
   }
+}
+AddUser.propTypes = {
+  onAddUser : propTypes.func.isRequired,
+  users : propTypes.array.isRequired,
+
 }
 
 export default AddUser;
