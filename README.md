@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+It allows you to add a user and display usersList and make sure no two same users names are repeated.
+
 ## Available Scripts
 
 In the project directory, you can run:
