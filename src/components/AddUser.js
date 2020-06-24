@@ -2,10 +2,14 @@ import React , { Component } from 'react';
 
 class AddUser extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
-    this.handleInputChange = this.handleInputChange.bind(this);
+  state = {
+    user : {
+    firstName : '',
+    lastName : '',
+    userName : '',
+    },
+
+
   }
 
 
@@ -14,6 +18,9 @@ class AddUser extends Component {
   }
 
   render (){
+    
+    const { firstName, lastName, userName } = this.state.user
+
     return (
       <div>
       <h1>New User</h1>
@@ -38,7 +45,7 @@ class AddUser extends Component {
         type= "text"
         name= "username"
         placeholder = "username"
-        value= {firstName}
+        value= {userName}
         onChange = {this.handleInputChange}/>
 
        <input type = "submit" value = "submit" />
